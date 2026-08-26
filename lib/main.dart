@@ -14,6 +14,7 @@ class CollegeStudentKitApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Focus',
+      color: const Color(0xFF0F172A),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,

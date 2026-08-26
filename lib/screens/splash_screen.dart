@@ -46,48 +46,36 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   }
 
   Future<void> _initializeApp() async {
-    // Stage 1: Init notifications (25%)
-    setState(() {
-      _progress = 0.25;
-      _loadingText = 'Setting up reminders & notifications...';
-    });
-    try {
-      await NotificationService.init();
-    } catch (_) {}
-
-    await Future.delayed(const Duration(milliseconds: 300));
-
-    // Stage 2: Init AI Food classifier & models (60%)
+    // Stage 1: 35% - Storage & Notification Setup
     if (mounted) {
       setState(() {
-        _progress = 0.60;
+        _progress = 0.35;
+        _loadingText = 'Setting up reminders & storage...';
+      });
+    }
+    try {
+      await NotificationService.init();
+      await StorageService.loadTasks();
+    } catch (_) {}
+
+    await Future.delayed(const Duration(milliseconds: 500));
+
+    // Stage 2: 75% - AI Camera & Goal Plans
+    if (mounted) {
+      setState(() {
+        _progress = 0.75;
         _loadingText = 'Loading AI Camera & Goal Plans...';
       });
     }
     try {
       await FoodClassifierService.init();
+      await StorageService.loadWaterIntake();
+      await StorageService.loadActivePlan();
     } catch (_) {}
 
-    await Future.delayed(const Duration(milliseconds: 300));
+    await Future.delayed(const Duration(milliseconds: 600));
 
-    // Stage 3: Prefetch user tasks & stats (90%)
-    if (mounted) {
-      setState(() {
-        _progress = 0.90;
-        _loadingText = 'Syncing daily tasks & hydration...';
-      });
-    }
-    try {
-      await Future.wait([
-        StorageService.loadTasks(),
-        StorageService.loadActivePlan(),
-        StorageService.loadWaterIntake(),
-      ]);
-    } catch (_) {}
-
-    await Future.delayed(const Duration(milliseconds: 400));
-
-    // Stage 4: Ready (100%)
+    // Stage 3: 100% - Ready
     if (mounted) {
       setState(() {
         _progress = 1.0;
@@ -95,11 +83,12 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       });
     }
 
-    await Future.delayed(const Duration(milliseconds: 300));
+    await Future.delayed(const Duration(milliseconds: 400));
 
     if (!mounted) return;
 
-    // Transition smoothly to MainScreen
+    _animationController.stop();
+
     Navigator.of(context).pushReplacement(
       SmoothFadeSlideRoute(page: const MainScreen()),
     );
