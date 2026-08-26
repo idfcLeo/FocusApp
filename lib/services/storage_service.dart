@@ -4,6 +4,7 @@ import '../models/task.dart';
 import '../models/habit.dart';
 import '../models/food_item.dart';
 import '../models/exercise.dart';
+import 'supabase_service.dart';
 
 class StorageService {
   /// A lightweight in-app signal so every screen can refresh after a save.
@@ -20,6 +21,76 @@ class StorageService {
   static const String _keyWaterIntake = 'college_kit_water_intake_v1';
   static const String _keyStepGoal = 'college_kit_step_goal_v1';
   static const String _keyActivePlan = 'college_kit_active_plan_v1';
+  static const String _keyWaterDate = 'college_kit_water_date_v1';
+  static const String _keySleepDate = 'college_kit_sleep_date_v1';
+
+  // --- SUPABASE CLOUD SYNC METHOD ---
+  static Future<void> syncWithSupabaseCloud() async {
+    try {
+      final cloudTasks = await SupabaseService.fetchTasks();
+      if (cloudTasks != null && cloudTasks.isNotEmpty) {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setStringList(_keyTasks, cloudTasks.map((t) => t.toJson()).toList());
+      }
+      final cloudHabits = await SupabaseService.fetchHabits();
+      if (cloudHabits != null && cloudHabits.isNotEmpty) {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setStringList(_keyHabits, cloudHabits.map((h) => h.toJson()).toList());
+      }
+      final cloudFoods = await SupabaseService.fetchFoodLogs();
+      if (cloudFoods != null && cloudFoods.isNotEmpty) {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setStringList(_keyFoods, cloudFoods.map((f) => f.toJson()).toList());
+      }
+      final cloudEx = await SupabaseService.fetchExerciseLogs();
+      if (cloudEx != null && cloudEx.isNotEmpty) {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setStringList(_keyExercises, cloudEx.map((e) => e.toJson()).toList());
+      }
+      final cloudProfile = await SupabaseService.fetchUserProfile();
+      if (cloudProfile != null) {
+        if (cloudProfile['weight'] != null) await saveCurrentWeight((cloudProfile['weight'] as num).toDouble());
+        if (cloudProfile['height'] != null) await saveHeight((cloudProfile['height'] as num).toDouble());
+        if (cloudProfile['age'] != null) await saveAge(cloudProfile['age'] as int);
+        if (cloudProfile['sex'] != null) await saveSex(cloudProfile['sex'] as String);
+        if (cloudProfile['activity_level'] != null) await saveActivityLevel(cloudProfile['activity_level'] as String);
+        if (cloudProfile['active_plan'] != null) await saveActivePlan(cloudProfile['active_plan'] as String);
+        if (cloudProfile['calorie_goal'] != null) await saveCalorieGoal(cloudProfile['calorie_goal'] as int);
+        if (cloudProfile['protein_goal'] != null) await saveProteinGoal(cloudProfile['protein_goal'] as int);
+        if (cloudProfile['water_goal'] != null) await saveWaterGoal(cloudProfile['water_goal'] as int);
+        if (cloudProfile['step_goal'] != null) await saveStepGoal(cloudProfile['step_goal'] as int);
+      }
+      _notifyChanged();
+    } catch (e) {
+      debugPrint('[StorageService] syncWithSupabaseCloud error: $e');
+    }
+  }
+
+  static Future<void> _syncUserProfileToSupabase() async {
+    final w = await loadCurrentWeight();
+    final h = await loadHeight();
+    final a = await loadAge();
+    final s = await loadSex();
+    final act = await loadActivityLevel();
+    final plan = await loadActivePlan();
+    final cal = await loadCalorieGoal();
+    final prot = await loadProteinGoal();
+    final water = await loadWaterGoal();
+    final step = await loadStepGoal();
+
+    SupabaseService.syncUserProfile(
+      weight: w,
+      height: h,
+      age: a,
+      sex: s,
+      activityLevel: act,
+      activePlan: plan,
+      calorieGoal: cal,
+      proteinGoal: prot,
+      waterGoal: water,
+      stepGoal: step,
+    );
+  }
 
   // TASKS
   static Future<List<TaskItem>> loadTasks() async {
@@ -53,6 +124,7 @@ class StorageService {
     final List<String> raw = tasks.map((t) => t.toJson()).toList();
     await prefs.setStringList(_keyTasks, raw);
     _notifyChanged();
+    SupabaseService.syncTasks(tasks);
   }
 
   static List<TaskItem> _defaultTasks() {
@@ -95,6 +167,7 @@ class StorageService {
     final List<String> raw = habits.map((h) => h.toJson()).toList();
     await prefs.setStringList(_keyHabits, raw);
     _notifyChanged();
+    SupabaseService.syncHabits(habits);
   }
 
   static List<HabitItem> _defaultHabits() {
@@ -120,6 +193,7 @@ class StorageService {
     final List<String> raw = foods.map((f) => f.toJson()).toList();
     await prefs.setStringList(_keyFoods, raw);
     _notifyChanged();
+    SupabaseService.syncFoodLogs(foods);
   }
 
   // EXERCISES & STEPS
@@ -135,6 +209,7 @@ class StorageService {
     final List<String> raw = exercises.map((e) => e.toJson()).toList();
     await prefs.setStringList(_keyExercises, raw);
     _notifyChanged();
+    SupabaseService.syncExerciseLogs(exercises);
   }
 
   // GOALS & PLANS
@@ -148,6 +223,7 @@ class StorageService {
     if (prefs.getInt(_keyCalorieGoal) == goal) return;
     await prefs.setInt(_keyCalorieGoal, goal);
     _notifyChanged();
+    _syncUserProfileToSupabase();
   }
 
   static Future<int> loadProteinGoal() async {
@@ -160,6 +236,7 @@ class StorageService {
     if (prefs.getInt(_keyProteinGoal) == goal) return;
     await prefs.setInt(_keyProteinGoal, goal);
     _notifyChanged();
+    _syncUserProfileToSupabase();
   }
 
   static Future<int> loadWaterGoal() async {
@@ -172,10 +249,8 @@ class StorageService {
     if (prefs.getInt(_keyWaterGoal) == goal) return;
     await prefs.setInt(_keyWaterGoal, goal);
     _notifyChanged();
+    _syncUserProfileToSupabase();
   }
-
-  static const String _keyWaterDate = 'college_kit_water_date_v1';
-  static const String _keySleepDate = 'college_kit_sleep_date_v1';
 
   static Future<int> loadWaterIntake() async {
     final prefs = await SharedPreferences.getInstance();
@@ -201,6 +276,7 @@ class StorageService {
     if (prefs.getInt(_keyWaterIntake) == intake) return;
     await prefs.setInt(_keyWaterIntake, intake);
     _notifyChanged();
+    SupabaseService.syncWaterLog(todayStr, intake);
   }
 
   static Future<int> loadStepGoal() async {
@@ -213,6 +289,7 @@ class StorageService {
     if (prefs.getInt(_keyStepGoal) == goal) return;
     await prefs.setInt(_keyStepGoal, goal);
     _notifyChanged();
+    _syncUserProfileToSupabase();
   }
 
   static Future<String> loadActivePlan() async {
@@ -225,6 +302,7 @@ class StorageService {
     if (prefs.getString(_keyActivePlan) == planName) return;
     await prefs.setString(_keyActivePlan, planName);
     _notifyChanged();
+    _syncUserProfileToSupabase();
   }
 
   // WEIGHT LOGS
@@ -238,6 +316,7 @@ class StorageService {
     if (prefs.getDouble('college_kit_current_weight') == weight) return;
     await prefs.setDouble('college_kit_current_weight', weight);
     _notifyChanged();
+    _syncUserProfileToSupabase();
   }
 
   // SLEEP LOGS
@@ -265,6 +344,7 @@ class StorageService {
     if (prefs.getDouble('college_kit_today_sleep') == hours) return;
     await prefs.setDouble('college_kit_today_sleep', hours);
     _notifyChanged();
+    SupabaseService.syncSleepLog(todayStr, hours);
   }
 
   // HEIGHT, AGE, SEX, ACTIVITY LEVEL
@@ -283,6 +363,7 @@ class StorageService {
     if (prefs.getDouble(_keyHeight) == height) return;
     await prefs.setDouble(_keyHeight, height);
     _notifyChanged();
+    _syncUserProfileToSupabase();
   }
 
   static Future<int> loadAge() async {
@@ -295,6 +376,7 @@ class StorageService {
     if (prefs.getInt(_keyAge) == age) return;
     await prefs.setInt(_keyAge, age);
     _notifyChanged();
+    _syncUserProfileToSupabase();
   }
 
   static Future<String> loadSex() async {
@@ -307,6 +389,7 @@ class StorageService {
     if (prefs.getString(_keySex) == sex) return;
     await prefs.setString(_keySex, sex);
     _notifyChanged();
+    _syncUserProfileToSupabase();
   }
 
   static Future<String> loadActivityLevel() async {
@@ -319,5 +402,6 @@ class StorageService {
     if (prefs.getString(_keyActivityLevel) == level) return;
     await prefs.setString(_keyActivityLevel, level);
     _notifyChanged();
+    _syncUserProfileToSupabase();
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../services/notification_service.dart';
 import '../services/food_classifier_service.dart';
 import '../services/storage_service.dart';
+import '../services/supabase_service.dart';
 import '../utils/page_transitions.dart';
 import 'main_screen.dart';
 
@@ -50,27 +51,27 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     if (mounted) {
       setState(() {
         _progress = 0.35;
-        _loadingText = 'Setting up reminders & storage...';
+        _loadingText = 'Connecting Supabase & Cloud Sync...';
       });
     }
     try {
+      await SupabaseService.init();
       await NotificationService.init();
       await StorageService.loadTasks();
     } catch (_) {}
 
-    await Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 400));
 
     // Stage 2: 75% - AI Camera & Goal Plans
     if (mounted) {
       setState(() {
         _progress = 0.75;
-        _loadingText = 'Loading AI Camera & Goal Plans...';
+        _loadingText = 'Syncing AI Camera & Goal Plans...';
       });
     }
     try {
       await FoodClassifierService.init();
-      await StorageService.loadWaterIntake();
-      await StorageService.loadActivePlan();
+      await StorageService.syncWithSupabaseCloud();
     } catch (_) {}
 
     await Future.delayed(const Duration(milliseconds: 600));
