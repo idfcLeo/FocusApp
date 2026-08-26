@@ -121,12 +121,12 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 children: [
                   Text(
                     'Schedule Task / Event for $dateFmtStr',
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: const Color(0xFF172033)),
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF172033)),
                   ),
                   const SizedBox(height: 14),
                   TextField(
                     controller: titleController,
-                    style: const TextStyle(color: const Color(0xFF172033)),
+                    style: const TextStyle(color: Color(0xFF172033)),
                     decoration: InputDecoration(
                       hintText: 'e.g. End Sem Exam / Capstone Presentation',
                       hintStyle: TextStyle(color: Colors.grey[500]),
@@ -142,7 +142,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         child: DropdownButtonFormField<String>(
                           value: category,
                           dropdownColor: const Color(0xFFF8FAFC),
-                          style: const TextStyle(color: const Color(0xFF172033)),
+                          style: const TextStyle(color: Color(0xFF172033)),
                           decoration: const InputDecoration(labelText: 'Category', labelStyle: TextStyle(color: Colors.grey)),
                           items: ['Exam', 'Project', 'Assignment', 'Study', 'Personal']
                               .map((c) => DropdownMenuItem(value: c, child: Text(c)))
@@ -157,7 +157,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         child: DropdownButtonFormField<String>(
                           value: priority,
                           dropdownColor: const Color(0xFFF8FAFC),
-                          style: const TextStyle(color: const Color(0xFF172033)),
+                          style: const TextStyle(color: Color(0xFF172033)),
                           decoration: const InputDecoration(labelText: 'Priority', labelStyle: TextStyle(color: Colors.grey)),
                           items: ['High', 'Medium', 'Low']
                               .map((p) => DropdownMenuItem(value: p, child: Text(p)))
@@ -284,7 +284,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
       backgroundColor: const Color(0xFFF7F8FC),
       appBar: AppBar(
         backgroundColor: const Color(0xFFFFFFFF),
-        title: const Text('Calendar & History Hub', style: TextStyle(fontWeight: FontWeight.bold, color: const Color(0xFF172033))),
+        title: const Text('Calendar & History Hub', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF172033))),
         elevation: 0,
         actions: [
           IconButton(
@@ -322,7 +322,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       setState(() => _calendarFormat = format);
                     },
                     calendarStyle: const CalendarStyle(
-                      defaultTextStyle: TextStyle(color: const Color(0xFF172033)),
+                      defaultTextStyle: TextStyle(color: Color(0xFF172033)),
                       weekendTextStyle: TextStyle(color: Color(0xFFFFB86B)),
                       outsideTextStyle: TextStyle(color: Colors.grey),
                       selectedDecoration: BoxDecoration(color: Color(0xFF4F46E5), shape: BoxShape.circle),
@@ -333,15 +333,15 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     headerStyle: HeaderStyle(
                       titleCentered: true,
                       formatButtonVisible: true,
-                      titleTextStyle: const TextStyle(color: const Color(0xFF172033), fontSize: 16, fontWeight: FontWeight.bold),
+                      titleTextStyle: const TextStyle(color: Color(0xFF172033), fontSize: 16, fontWeight: FontWeight.bold),
                       formatButtonTextStyle: const TextStyle(color: Color(0xFF4F46E5), fontSize: 12),
                       formatButtonDecoration: BoxDecoration(
                         color: const Color(0xFFF8FAFC),
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(color: const Color(0xFF4F46E5).withOpacity(0.4)),
                       ),
-                      leftChevronIcon: const Icon(Icons.chevron_left, color: const Color(0xFF172033)),
-                      rightChevronIcon: const Icon(Icons.chevron_right, color: const Color(0xFF172033)),
+                      leftChevronIcon: const Icon(Icons.chevron_left, color: Color(0xFF172033)),
+                      rightChevronIcon: const Icon(Icons.chevron_right, color: Color(0xFF172033)),
                     ),
                   ),
                 ),
@@ -354,7 +354,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   children: [
                     Text(
                       DateFormat('EEEE, MMM d, yyyy').format(activeDate),
-                      style: const TextStyle(color: const Color(0xFF172033), fontSize: 16, fontWeight: FontWeight.bold),
+                      style: const TextStyle(color: Color(0xFF172033), fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                     ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
@@ -421,7 +421,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       const SizedBox(height: 8),
 
                       // Tasks & Events list for this date
-                      const Text('Tasks & Deadlines Scheduled for Date:', style: TextStyle(color: const Color(0xFF172033), fontSize: 13, fontWeight: FontWeight.bold)),
+                      const Text('Tasks & Deadlines Scheduled for Date:', style: TextStyle(color: Color(0xFF172033), fontSize: 13, fontWeight: FontWeight.bold)),
                       const SizedBox(height: 8),
 
                       if (dateTasks.isEmpty)
@@ -469,7 +469,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
                       const SizedBox(height: 12),
                       // Food Logged Breakdown for this date
-                      const Text('Food Logged on Selected Date:', style: TextStyle(color: const Color(0xFF172033), fontSize: 13, fontWeight: FontWeight.bold)),
+                      const Text('Food Logged on Selected Date:', style: TextStyle(color: Color(0xFF172033), fontSize: 13, fontWeight: FontWeight.bold)),
                       const SizedBox(height: 8),
 
                       if (dateFoods.isEmpty)
@@ -485,7 +485,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Expanded(child: Text(f.name, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(color: const Color(0xFF172033), fontWeight: FontWeight.bold, fontSize: 13))),
+                                  Expanded(child: Text(f.name, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(color: Color(0xFF172033), fontWeight: FontWeight.bold, fontSize: 13))),
                                   const SizedBox(width: 8),
                                   Text('${f.calories} kcal • ${f.proteinGrams}g P', style: const TextStyle(color: Color(0xFFFFD166), fontSize: 12, fontWeight: FontWeight.bold)),
                                 ],
@@ -512,7 +512,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
         children: [
           Text(title, style: TextStyle(color: color, fontSize: 10, fontWeight: FontWeight.bold)),
           const SizedBox(height: 2),
-          Text(val, style: const TextStyle(color: const Color(0xFF172033), fontSize: 13, fontWeight: FontWeight.bold)),
+          Text(val, style: const TextStyle(color: Color(0xFF172033), fontSize: 13, fontWeight: FontWeight.bold)),
         ],
       ),
     );

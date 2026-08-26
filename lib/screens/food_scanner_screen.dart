@@ -140,7 +140,7 @@ class _FoodScannerScreenState extends State<FoodScannerScreen> {
                           children: [
                             Text(
                               result.label,
-                              style: const TextStyle(color: const Color(0xFF172033), fontSize: 18, fontWeight: FontWeight.bold),
+                              style: const TextStyle(color: Color(0xFF172033), fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(height: 4),
                             Text(
@@ -165,7 +165,7 @@ class _FoodScannerScreenState extends State<FoodScannerScreen> {
                   const SizedBox(height: 18),
                   Row(
                     children: [
-                      const Text('Portion Size: ', style: TextStyle(color: const Color(0xFF172033))),
+                      const Text('Portion Size: ', style: TextStyle(color: Color(0xFF172033))),
                       Text('${portionGrams}g', style: const TextStyle(color: Color(0xFF5AC8FA), fontWeight: FontWeight.bold)),
                     ],
                   ),
@@ -233,7 +233,7 @@ class _FoodScannerScreenState extends State<FoodScannerScreen> {
         children: [
           Text(title, style: TextStyle(color: color, fontSize: 10, fontWeight: FontWeight.bold)),
           const SizedBox(height: 2),
-          Text(val, style: const TextStyle(color: const Color(0xFF172033), fontSize: 13, fontWeight: FontWeight.bold)),
+          Text(val, style: const TextStyle(color: Color(0xFF172033), fontSize: 13, fontWeight: FontWeight.bold)),
         ],
       ),
     );
@@ -306,10 +306,10 @@ class _FoodScannerScreenState extends State<FoodScannerScreen> {
               padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
-                  Row(children: [const Expanded(child: Text('Select Meal from Database', style: TextStyle(color: const Color(0xFF172033), fontSize: 18, fontWeight: FontWeight.bold))), TextButton.icon(onPressed: () { Navigator.pop(ctx); _showManualFoodEntry(); }, icon: const Icon(Icons.edit_note, size: 18), label: const Text('Custom'))]),
+                  Row(children: [const Expanded(child: Text('Select Meal from Database', style: TextStyle(color: Color(0xFF172033), fontSize: 18, fontWeight: FontWeight.bold))), TextButton.icon(onPressed: () { Navigator.pop(ctx); _showManualFoodEntry(); }, icon: const Icon(Icons.edit_note, size: 18), label: const Text('Custom'))]),
                   const SizedBox(height: 12),
                   TextField(
-                    style: const TextStyle(color: const Color(0xFF172033)),
+                    style: const TextStyle(color: Color(0xFF172033)),
                     decoration: InputDecoration(
                       hintText: 'Search food (e.g. Paneer, Egg, Dosa)...',
                       hintStyle: const TextStyle(color: Colors.grey),
@@ -327,7 +327,7 @@ class _FoodScannerScreenState extends State<FoodScannerScreen> {
                       itemBuilder: (context, i) {
                         final item = filtered[i];
                         return ListTile(
-                          title: Text(item.name, style: const TextStyle(color: const Color(0xFF172033), fontWeight: FontWeight.bold)),
+                          title: Text(item.name, style: const TextStyle(color: Color(0xFF172033), fontWeight: FontWeight.bold)),
                           subtitle: Text('${item.category} • ${item.caloriesPerServing} kcal | ${item.proteinGrams}g P', style: const TextStyle(color: Colors.grey, fontSize: 12)),
                           trailing: const Icon(Icons.add_circle_outline, color: Color(0xFF5AC8FA)),
                           onTap: () { Navigator.pop(ctx); _showDatabasePortionSheet(item); },
@@ -356,7 +356,7 @@ class _FoodScannerScreenState extends State<FoodScannerScreen> {
       backgroundColor: const Color(0xFFF7F8FC),
       appBar: AppBar(
         backgroundColor: const Color(0xFFFFFFFF),
-        title: const Text('AI Camera Food & Calorie Scanner', style: TextStyle(fontWeight: FontWeight.bold, color: const Color(0xFF172033))),
+        title: const Text('AI Camera Food & Calorie Scanner', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF172033))),
         elevation: 0,
       ),
       body: _isLoading
@@ -384,7 +384,7 @@ class _FoodScannerScreenState extends State<FoodScannerScreen> {
                           const SizedBox(height: 10),
                           const Text(
                             'Scan Food with Camera',
-                            style: TextStyle(color: const Color(0xFF172033), fontSize: 18, fontWeight: FontWeight.bold),
+                            style: TextStyle(color: Color(0xFF172033), fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(height: 4),
                           const Text(
@@ -517,7 +517,7 @@ class _FoodScannerScreenState extends State<FoodScannerScreen> {
                     ),
 
                     const SizedBox(height: 20),
-                    const Text('Today\'s Food Logs', style: TextStyle(color: const Color(0xFF172033), fontSize: 16, fontWeight: FontWeight.bold)),
+                    const Text('Today\'s Food Logs', style: TextStyle(color: Color(0xFF172033), fontSize: 16, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 10),
 
                     if (todayLogs.isEmpty)
@@ -544,7 +544,7 @@ class _FoodScannerScreenState extends State<FoodScannerScreen> {
                                       decoration: BoxDecoration(color: const Color(0xFFF8FAFC), borderRadius: BorderRadius.circular(8)),
                                       child: const Icon(Icons.restaurant, color: Color(0xFF5AC8FA)),
                                     ),
-                              title: Text(log.name, style: const TextStyle(color: const Color(0xFF172033), fontWeight: FontWeight.bold)),
+                              title: Text(log.name, style: const TextStyle(color: Color(0xFF172033), fontWeight: FontWeight.bold)),
                               subtitle: Text('${log.calories} kcal • ${log.proteinGrams}g P${log.fiberGrams > 0 ? ' • ${log.fiberGrams}g fibre' : ''} | ${log.portionGrams}g', style: const TextStyle(color: Colors.grey, fontSize: 12)),
                               trailing: IconButton(
                                 icon: const Icon(Icons.delete_outline, color: Colors.grey),
@@ -567,7 +567,7 @@ class _FoodScannerScreenState extends State<FoodScannerScreen> {
                         children: [
                           CircularProgressIndicator(color: Color(0xFF5AC8FA)),
                           SizedBox(height: 16),
-                          Text('AI Model Analyzing Image...', style: TextStyle(color: const Color(0xFF172033), fontSize: 16, fontWeight: FontWeight.bold)),
+                          Text('AI Model Analyzing Image...', style: TextStyle(color: Color(0xFF172033), fontSize: 16, fontWeight: FontWeight.bold)),
                         ],
                       ),
                     ),

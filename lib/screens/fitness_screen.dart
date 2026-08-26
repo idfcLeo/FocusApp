@@ -107,12 +107,12 @@ class _FitnessScreenState extends State<FitnessScreen> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Log Exercise / Workout', style: TextStyle(color: const Color(0xFF172033), fontSize: 18, fontWeight: FontWeight.bold)),
+                  const Text('Log Exercise / Workout', style: TextStyle(color: Color(0xFF172033), fontSize: 18, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 14),
                   DropdownButtonFormField<String>(
                     value: selectedWorkout,
                     dropdownColor: const Color(0xFFF8FAFC),
-                    style: const TextStyle(color: const Color(0xFF172033)),
+                    style: const TextStyle(color: Color(0xFF172033)),
                     decoration: const InputDecoration(labelText: 'Preset Workout', labelStyle: TextStyle(color: Colors.grey)),
                     items: presetWorkouts.keys.map((w) => DropdownMenuItem(value: w, child: Text(w))).toList(),
                     onChanged: (val) {
@@ -129,7 +129,7 @@ class _FitnessScreenState extends State<FitnessScreen> {
                   const SizedBox(height: 10),
                   TextField(
                     controller: titleController,
-                    style: const TextStyle(color: const Color(0xFF172033)),
+                    style: const TextStyle(color: Color(0xFF172033)),
                     decoration: InputDecoration(
                       hintText: 'Workout name (e.g. Legs & Core)',
                       hintStyle: const TextStyle(color: Colors.grey),
@@ -145,7 +145,7 @@ class _FitnessScreenState extends State<FitnessScreen> {
                         child: TextField(
                           controller: calController,
                           keyboardType: TextInputType.number,
-                          style: const TextStyle(color: const Color(0xFF172033)),
+                          style: const TextStyle(color: Color(0xFF172033)),
                           decoration: InputDecoration(
                             labelText: 'Calories Burned (kcal)',
                             labelStyle: const TextStyle(color: Colors.grey),
@@ -160,7 +160,7 @@ class _FitnessScreenState extends State<FitnessScreen> {
                         child: TextField(
                           controller: durController,
                           keyboardType: TextInputType.number,
-                          style: const TextStyle(color: const Color(0xFF172033)),
+                          style: const TextStyle(color: Color(0xFF172033)),
                           decoration: InputDecoration(
                             labelText: 'Duration (mins)',
                             labelStyle: const TextStyle(color: Colors.grey),
@@ -229,12 +229,12 @@ class _FitnessScreenState extends State<FitnessScreen> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Log Step Count', style: TextStyle(color: const Color(0xFF172033), fontSize: 18, fontWeight: FontWeight.bold)),
+              const Text('Log Step Count', style: TextStyle(color: Color(0xFF172033), fontSize: 18, fontWeight: FontWeight.bold)),
               const SizedBox(height: 12),
               TextField(
                 controller: stepsController,
                 keyboardType: TextInputType.number,
-                style: const TextStyle(color: const Color(0xFF172033)),
+                style: const TextStyle(color: Color(0xFF172033)),
                 decoration: InputDecoration(
                   hintText: 'e.g. 6500 steps',
                   hintStyle: const TextStyle(color: Colors.grey),
@@ -289,11 +289,11 @@ class _FitnessScreenState extends State<FitnessScreen> {
       builder: (ctx) {
         return AlertDialog(
           backgroundColor: const Color(0xFFFFFFFF),
-          title: const Text('Log Today\'s Sleep (Hours)', style: TextStyle(color: const Color(0xFF172033))),
+          title: const Text('Log Today\'s Sleep (Hours)', style: TextStyle(color: Color(0xFF172033))),
           content: TextField(
             controller: sleepController,
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
-            style: const TextStyle(color: const Color(0xFF172033)),
+            style: const TextStyle(color: Color(0xFF172033)),
             decoration: const InputDecoration(
               labelText: 'Hours of sleep (e.g. 7.5)',
               labelStyle: TextStyle(color: Colors.grey),
@@ -325,11 +325,11 @@ class _FitnessScreenState extends State<FitnessScreen> {
       builder: (ctx) {
         return AlertDialog(
           backgroundColor: const Color(0xFFFFFFFF),
-          title: const Text('Log Current Weight (Kg)', style: TextStyle(color: const Color(0xFF172033))),
+          title: const Text('Log Current Weight (Kg)', style: TextStyle(color: Color(0xFF172033))),
           content: TextField(
             controller: weightController,
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
-            style: const TextStyle(color: const Color(0xFF172033)),
+            style: const TextStyle(color: Color(0xFF172033)),
             decoration: const InputDecoration(
               labelText: 'Weight in Kg (e.g. 68.5)',
               labelStyle: TextStyle(color: Colors.grey),
@@ -382,7 +382,7 @@ class _FitnessScreenState extends State<FitnessScreen> {
       backgroundColor: const Color(0xFFF7F8FC),
       appBar: AppBar(
         backgroundColor: const Color(0xFFFFFFFF),
-        title: const Text('Fitness & Health Metrics Hub', style: TextStyle(fontWeight: FontWeight.bold, color: const Color(0xFF172033))),
+        title: const Text('Fitness & Health Metrics Hub', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF172033))),
         elevation: 0,
       ),
       body: _isLoading
@@ -534,7 +534,7 @@ class _FitnessScreenState extends State<FitnessScreen> {
                 ),
 
                 const SizedBox(height: 20),
-                const Text('Today\'s Exercise Logs', style: TextStyle(color: const Color(0xFF172033), fontSize: 16, fontWeight: FontWeight.bold)),
+                const Text('Today\'s Exercise Logs', style: TextStyle(color: Color(0xFF172033), fontSize: 16, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 10),
 
                 if (todayEx.isEmpty)
@@ -555,7 +555,7 @@ class _FitnessScreenState extends State<FitnessScreen> {
                             backgroundColor: Color(0xFFFFF3E8),
                             child: Icon(Icons.fitness_center, color: Color(0xFFFF8A65)),
                           ),
-                          title: Text(ex.title, style: const TextStyle(color: const Color(0xFF172033), fontWeight: FontWeight.bold)),
+                          title: Text(ex.title, style: const TextStyle(color: Color(0xFF172033), fontWeight: FontWeight.bold)),
                           subtitle: Text(
                             ex.steps > 0
                                 ? '${ex.steps} steps • ${ex.caloriesBurned} kcal burned'
@@ -627,7 +627,7 @@ class _FitnessScreenState extends State<FitnessScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: const TextStyle(color: const Color(0xFF172033), fontWeight: FontWeight.bold, fontSize: 14)),
+                Text(title, style: const TextStyle(color: Color(0xFF172033), fontWeight: FontWeight.bold, fontSize: 14)),
                 const SizedBox(height: 2),
                 Text(subtitle, style: const TextStyle(color: Colors.grey, fontSize: 12)),
               ],

@@ -8,7 +8,7 @@ import '../models/task.dart';
 class SupabaseService {
   // Live Supabase credentials for Focus App project
   static String supabaseUrl = 'https://noobohzrcfbtwtpkjcdw.supabase.co';
-  static String supabaseAnonKey = 'sb_publishable_lnmGjuNEAFZQnzdDSm9vxw_dROgNCxJ';
+  static String supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb2JvaHpyY2ZidHd0cGtqY2R3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc3MjA0NzIsImV4cCI6MjEwMzI5NjQ3Mn0.Cp9QHLrDXco_jSyaDjWVxT--bQMEWg2FK7va-wecTEk';
   
   static bool _isInitialized = false;
 
@@ -33,7 +33,7 @@ class SupabaseService {
     try {
       await Supabase.initialize(
         url: supabaseUrl,
-        anonKey: supabaseAnonKey,
+        publishableKey: supabaseAnonKey,
       );
       _isInitialized = true;
       debugPrint('[SupabaseService] Supabase initialized successfully!');

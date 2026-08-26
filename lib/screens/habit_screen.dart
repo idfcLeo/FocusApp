@@ -115,12 +115,12 @@ class _HabitScreenState extends State<HabitScreen> {
                 children: [
                   Text(
                     isEditing ? 'Edit Daily Habit' : 'Create Custom Daily Habit',
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: const Color(0xFF172033)),
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF172033)),
                   ),
                   const SizedBox(height: 14),
                   TextField(
                     controller: titleController,
-                    style: const TextStyle(color: const Color(0xFF172033)),
+                    style: const TextStyle(color: Color(0xFF172033)),
                     decoration: InputDecoration(
                       hintText: 'e.g. Read 15 pages of Tech / Self Dev',
                       hintStyle: TextStyle(color: Colors.grey[500]),
@@ -136,7 +136,7 @@ class _HabitScreenState extends State<HabitScreen> {
                         child: DropdownButtonFormField<String>(
                           value: icon,
                           dropdownColor: const Color(0xFFF8FAFC),
-                          style: const TextStyle(color: const Color(0xFF172033), fontSize: 18),
+                          style: const TextStyle(color: Color(0xFF172033), fontSize: 18),
                           decoration: const InputDecoration(labelText: 'Emoji Icon', labelStyle: TextStyle(color: Colors.grey)),
                           items: ['🔥', '📚', '🏋️', '💧', '🧩', '💻', '🧘', '🍳', '🥗', '☕', '🌙', '👟']
                               .map((e) => DropdownMenuItem(value: e, child: Text(e)))
@@ -151,7 +151,7 @@ class _HabitScreenState extends State<HabitScreen> {
                         child: DropdownButtonFormField<String>(
                           value: category,
                           dropdownColor: const Color(0xFFF8FAFC),
-                          style: const TextStyle(color: const Color(0xFF172033)),
+                          style: const TextStyle(color: Color(0xFF172033)),
                           decoration: const InputDecoration(labelText: 'Category', labelStyle: TextStyle(color: Colors.grey)),
                           items: ['Study', 'Project', 'Coursework', 'Placement prep', 'Fitness', 'Hydration', 'Protein', 'Mindfulness', 'General']
                               .map((c) => DropdownMenuItem(value: c, child: Text(c)))
@@ -235,13 +235,13 @@ class _HabitScreenState extends State<HabitScreen> {
               ),
               ListTile(
                 leading: Text(habit.icon, style: const TextStyle(fontSize: 24)),
-                title: Text(habit.title, style: const TextStyle(color: const Color(0xFF172033), fontWeight: FontWeight.bold)),
+                title: Text(habit.title, style: const TextStyle(color: Color(0xFF172033), fontWeight: FontWeight.bold)),
                 subtitle: Text('Category: ${habit.category} | Streak: ${habit.streakCount}d', style: const TextStyle(color: Colors.grey, fontSize: 12)),
               ),
               const Divider(color: Color(0xFFE2E8F0)),
               ListTile(
                 leading: const Icon(Icons.edit_outlined, color: Color(0xFF6EE7F0)),
-                title: const Text('Edit Habit', style: TextStyle(color: const Color(0xFF172033))),
+                title: const Text('Edit Habit', style: TextStyle(color: Color(0xFF172033))),
                 onTap: () {
                   Navigator.pop(ctx);
                   _showAddOrEditHabitModal(habitToEdit: habit);
@@ -249,7 +249,7 @@ class _HabitScreenState extends State<HabitScreen> {
               ),
               ListTile(
                 leading: const Icon(Icons.refresh_outlined, color: Color(0xFFFFB86B)),
-                title: const Text('Reset Active Streak to 0', style: TextStyle(color: const Color(0xFF172033))),
+                title: const Text('Reset Active Streak to 0', style: TextStyle(color: Color(0xFF172033))),
                 onTap: () {
                   Navigator.pop(ctx);
                   setState(() {
@@ -286,7 +286,7 @@ class _HabitScreenState extends State<HabitScreen> {
       builder: (ctx) {
         return AlertDialog(
           backgroundColor: const Color(0xFFFFFFFF),
-          title: const Text('Delete Habit?', style: TextStyle(color: const Color(0xFF172033))),
+          title: const Text('Delete Habit?', style: TextStyle(color: Color(0xFF172033))),
           content: Text('Are you sure you want to delete "${habit.title}"? Your streak history for this habit will be removed.', style: const TextStyle(color: Colors.grey)),
           actions: [
             TextButton(
@@ -305,7 +305,7 @@ class _HabitScreenState extends State<HabitScreen> {
                   SnackBar(content: Text('Deleted "${habit.title}"')),
                 );
               },
-              child: const Text('Delete', style: TextStyle(color: const Color(0xFF172033), fontWeight: FontWeight.bold)),
+              child: const Text('Delete', style: TextStyle(color: Color(0xFF172033), fontWeight: FontWeight.bold)),
             ),
           ],
         );
@@ -321,7 +321,7 @@ class _HabitScreenState extends State<HabitScreen> {
       backgroundColor: const Color(0xFFF7F8FC),
       appBar: AppBar(
         backgroundColor: const Color(0xFFFFFFFF),
-        title: const Text('Habits & Consistency Streaks', style: TextStyle(fontWeight: FontWeight.bold, color: const Color(0xFF172033))),
+        title: const Text('Habits & Consistency Streaks', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF172033))),
         elevation: 0,
         actions: [
           IconButton(
@@ -354,7 +354,7 @@ class _HabitScreenState extends State<HabitScreen> {
                         child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Everyday Consistency', maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(color: const Color(0xFF172033), fontWeight: FontWeight.bold, fontSize: 16)),
+                          Text('Everyday Consistency', maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(color: Color(0xFF172033), fontWeight: FontWeight.bold, fontSize: 16)),
                           SizedBox(height: 4),
                           Text('Tap to check-in • Hold to edit / delete', maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.grey, fontSize: 12)),
                         ],
@@ -389,7 +389,7 @@ class _HabitScreenState extends State<HabitScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('Daily Habits', style: TextStyle(color: const Color(0xFF172033), fontSize: 16, fontWeight: FontWeight.bold)),
+                    const Text('Daily Habits', style: TextStyle(color: Color(0xFF172033), fontSize: 16, fontWeight: FontWeight.bold)),
                     Text('${_habits.length} habits', style: const TextStyle(color: Colors.grey, fontSize: 12)),
                   ],
                 ),

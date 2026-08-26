@@ -307,7 +307,7 @@ class _PlansScreenState extends State<PlansScreen> {
                 ),
 
                 const SizedBox(height: 22),
-                const Text('Available Goal Plans', style: TextStyle(color: const Color(0xFF172033), fontSize: 17, fontWeight: FontWeight.bold)),
+                const Text('Available Goal Plans', style: TextStyle(color: Color(0xFF172033), fontSize: 17, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 12),
 
                 // 1. Weight Loss Plan Card
@@ -363,7 +363,7 @@ class _PlansScreenState extends State<PlansScreen> {
         TextFormField(
           initialValue: initialVal,
           keyboardType: TextInputType.number,
-          style: const TextStyle(color: const Color(0xFF172033), fontSize: 13, fontWeight: FontWeight.bold),
+          style: const TextStyle(color: Color(0xFF172033), fontSize: 13, fontWeight: FontWeight.bold),
           decoration: InputDecoration(
             isDense: true,
             contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
