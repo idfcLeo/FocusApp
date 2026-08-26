@@ -19,6 +19,7 @@ class _FitnessScreenState extends State<FitnessScreen> {
   int _calorieGoal = 2400;
   int _proteinGoal = 120;
   int _waterGoal = 3000;
+  int _waterIntake = 0;
   int _stepGoal = 10000;
   double _currentWeight = 70.0;
   double _todaySleepHours = 7.5;
@@ -46,6 +47,7 @@ class _FitnessScreenState extends State<FitnessScreen> {
     final goalCal = await StorageService.loadCalorieGoal();
     final goalProt = await StorageService.loadProteinGoal();
     final goalWater = await StorageService.loadWaterGoal();
+    final intakeWater = await StorageService.loadWaterIntake();
     final goalStep = await StorageService.loadStepGoal();
     final w = await StorageService.loadCurrentWeight();
     final sleep = await StorageService.loadTodaySleep();
@@ -58,6 +60,7 @@ class _FitnessScreenState extends State<FitnessScreen> {
       _calorieGoal = goalCal;
       _proteinGoal = goalProt;
       _waterGoal = goalWater;
+      _waterIntake = intakeWater;
       _stepGoal = goalStep;
       _currentWeight = w;
       _todaySleepHours = sleep;
@@ -516,13 +519,13 @@ class _FitnessScreenState extends State<FitnessScreen> {
                         icon: Icons.water_drop_outlined,
                         iconColor: const Color(0xFF5AC8FA),
                         title: 'Water Hydration',
-                        subtitle: 'Goal: $waterGlasses glasses ($_waterGoal ml)',
+                        subtitle: 'Today: $_waterIntake / $_waterGoal ml (${(_waterIntake / 250).round()} / $waterGlasses glasses)',
                         trailingAction: IconButton(
                           icon: const Icon(Icons.add_circle_outline, color: Color(0xFF5AC8FA)),
                           onPressed: () async {
-                            final newWater = _waterGoal + 250;
-                            setState(() => _waterGoal = newWater);
-                            await StorageService.saveWaterGoal(newWater);
+                            final newWater = _waterIntake + 250;
+                            setState(() => _waterIntake = newWater);
+                            await StorageService.saveWaterIntake(newWater);
                           },
                         ),
                       ),

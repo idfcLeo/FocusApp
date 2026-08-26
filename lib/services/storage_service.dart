@@ -174,13 +174,30 @@ class StorageService {
     _notifyChanged();
   }
 
+  static const String _keyWaterDate = 'college_kit_water_date_v1';
+  static const String _keySleepDate = 'college_kit_sleep_date_v1';
+
   static Future<int> loadWaterIntake() async {
     final prefs = await SharedPreferences.getInstance();
+    final now = DateTime.now();
+    final todayStr = '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
+    final savedDate = prefs.getString(_keyWaterDate);
+
+    if (savedDate != todayStr) {
+      // Day has changed! Reset water intake to 0 for the new day
+      await prefs.setInt(_keyWaterIntake, 0);
+      await prefs.setString(_keyWaterDate, todayStr);
+      return 0;
+    }
     return prefs.getInt(_keyWaterIntake) ?? 0;
   }
 
   static Future<void> saveWaterIntake(int intake) async {
     final prefs = await SharedPreferences.getInstance();
+    final now = DateTime.now();
+    final todayStr = '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
+    await prefs.setString(_keyWaterDate, todayStr);
+
     if (prefs.getInt(_keyWaterIntake) == intake) return;
     await prefs.setInt(_keyWaterIntake, intake);
     _notifyChanged();
@@ -226,11 +243,25 @@ class StorageService {
   // SLEEP LOGS
   static Future<double> loadTodaySleep() async {
     final prefs = await SharedPreferences.getInstance();
+    final now = DateTime.now();
+    final todayStr = '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
+    final savedDate = prefs.getString(_keySleepDate);
+
+    if (savedDate != todayStr) {
+      // Day has changed! Reset sleep for the new day
+      await prefs.setDouble('college_kit_today_sleep', 7.5);
+      await prefs.setString(_keySleepDate, todayStr);
+      return 7.5;
+    }
     return prefs.getDouble('college_kit_today_sleep') ?? 7.5;
   }
 
   static Future<void> saveTodaySleep(double hours) async {
     final prefs = await SharedPreferences.getInstance();
+    final now = DateTime.now();
+    final todayStr = '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
+    await prefs.setString(_keySleepDate, todayStr);
+
     if (prefs.getDouble('college_kit_today_sleep') == hours) return;
     await prefs.setDouble('college_kit_today_sleep', hours);
     _notifyChanged();
