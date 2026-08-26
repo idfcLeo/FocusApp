@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'services/notification_service.dart';
-import 'services/food_classifier_service.dart';
-import 'screens/main_screen.dart';
+import 'screens/splash_screen.dart';
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  await NotificationService.init();
-  await FoodClassifierService.init();
   runApp(const CollegeStudentKitApp());
 }
 
@@ -28,9 +24,13 @@ class CollegeStudentKitApp extends StatelessWidget {
           surface: Colors.white,
         ),
         textTheme: GoogleFonts.interTextTheme(),
-        appBarTheme: const AppBarTheme(backgroundColor: Color(0xFFF7F8FC), foregroundColor: Color(0xFF172033), elevation: 0),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFFF7F8FC),
+          foregroundColor: Color(0xFF172033),
+          elevation: 0,
+        ),
       ),
-      home: const MainScreen(),
+      home: const SplashScreen(),
     );
   }
 }
