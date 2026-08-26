@@ -6,10 +6,9 @@ import '../models/habit.dart';
 import '../models/task.dart';
 
 class SupabaseService {
-  // Configurable Supabase credentials
-  // Replace with your project URL & Anon Key from Supabase Dashboard -> Settings -> API
-  static String supabaseUrl = 'https://YOUR_SUPABASE_PROJECT_ID.supabase.co';
-  static String supabaseAnonKey = 'YOUR_SUPABASE_ANON_KEY';
+  // Live Supabase credentials for Focus App project
+  static String supabaseUrl = 'https://noobohzrcfbtwtpkjcdw.supabase.co';
+  static String supabaseAnonKey = 'sb_publishable_lnmGjuNEAFZQnzdDSm9vxw_dROgNCxJ';
   
   static bool _isInitialized = false;
 
